@@ -13,15 +13,19 @@ export class UsuarioService extends BaseService<Usuario> {
         super(http, 'Usuario');
     }
 
+    public buscarUsuarioLogado(): Usuario {
+        return this.usuario.value;
+    }
+
     public deslogar() {
         this.usuario.next(null);
         localStorage.removeItem('token');
     }
 
-    public logar(usuario: Usuario): Observable<any> {
-        const url = this.baseURL + '/BuscarUsuarioPorLoginESenha';
+    public logarPortal(usuario: Usuario): Observable<any> {
+        const url = this.baseURL + '/LogarPortal';
 
-        return this.http.post<string>(url, usuario)
+        return this.http.post(url, usuario, {responseType: "text"})
         .pipe(map(token => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token);
@@ -31,13 +35,15 @@ export class UsuarioService extends BaseService<Usuario> {
 
     public usuarioLogado(): boolean {
         let token = localStorage.getItem('token');
-        const user = Object.assign(new Usuario(), jwt_decode(token));
-        if (user.dataExpiracao < new Date()) {
+        const decoded = jwt_decode(token)
+        const user = Object.assign(new Usuario(), JSON.parse(decoded["Usuario"]));
+        if (new Date(decoded['exp'] * 1000) < new Date()) {
             this.deslogar();
             return false;
         }
         else {
-            this.usuario.next(user);
+            if (this.usuario.value == null)
+                this.usuario.next(user);
             return true;
         }
     }

@@ -1,0 +1,14 @@
+.header {
+    width: 100%;
+}
+
+.login-fields {
+    margin: 30px;
+    .buttons {
+        justify-content: space-between;
+        display: flex;
+        * {
+            margin: 0 10px;
+        }
+    }
+}

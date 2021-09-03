@@ -2,7 +2,6 @@
 @import "./fonts";
 
 body {
-    background: $white;
     font-family: "Roboto", sans-serif;
     padding: 0;
     margin: 0;
@@ -42,6 +41,14 @@ body {
     a:-webkit-any-link {
         text-decoration: unset;
         color: unset;
+    }
+}
+a {
+    color: $gray;
+    &:hover {
+        color: $primary;
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 
@@ -97,6 +104,7 @@ button:hover {
 .mat-raised-button {
     &.mat-primary {
         background-color: $primary;
+        color: $white;
     }
     &.mat-accent {
         background-color: $light-gray;

@@ -1,2 +1,9 @@
+<mat-toolbar color="primary" *ngIf="usuarioLogado != null">
+    <mat-toolbar-row>
+        <h4 class="logado">Usuário logado: {{usuarioLogado.Nome}}</h4>
+        <mat-icon aria-hidden="false" class="logout" matTooltip="Sair do sistema." (click)="logout()">logout</mat-icon>
+    </mat-toolbar-row>
+</mat-toolbar>
 <loading-component></loading-component>
 <notification-component></notification-component>
+<router-outlet></router-outlet>
