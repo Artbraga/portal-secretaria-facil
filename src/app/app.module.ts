@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextMaskModule } from 'angular2-text-mask';
 import { CustomDatetimepickerModule } from './components/custom-datetimepicker/custom-datetimepicker.module';
@@ -14,16 +14,37 @@ import { ModalConfirmacaoModule } from './components/modal-confirmacao/modal-con
 import { NotificationModule } from './components/notification/notification.module';
 import { HttpLoadingInterceptor } from 'src/services/interceptors/httpLoadingInterceptor';
 import { HttpErrorHandleInterceptor } from 'src/services/interceptors/httpErrorHandlerInterceptor';
-import { ModalLoginModule } from './components/modal-login/modal-login.module';
-import { ModalLoginComponent } from './components/modal-login/modal-login.component';
+import { HomeComponent } from './views/home/home.component';
+import { LoginComponent } from './views/login/login.component';
+import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthInterceptor } from 'src/services/interceptors/httpAuthenticationInterceptor';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { CountdownModule } from 'ngx-countdown';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
     declarations: [
         AppComponent,
+        HomeComponent,
+        LoginComponent,
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        CommonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatSidenavModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
@@ -31,18 +52,19 @@ import { ModalLoginComponent } from './components/modal-login/modal-login.compon
         NotificationModule,
         CustomDatetimepickerModule,
         ModalConfirmacaoModule,
-        ModalLoginModule,
-        TextMaskModule
+        TextMaskModule,
+        CountdownModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandleInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         {
             provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
             useValue: { appearance: 'outline' },
         },
     ],
-    entryComponents: [ModalLoginComponent],
+    entryComponents: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

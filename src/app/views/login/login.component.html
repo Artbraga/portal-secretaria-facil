@@ -1,0 +1,29 @@
+<div class="login form-grid">
+    <div class="header">
+        <h2>Portal do Aluno</h2>
+    </div>
+    
+    <div class="eight">
+    </div>
+    <div class="four">
+        <div class="login-fields">
+            <ng-container *ngIf="error">
+                <div class="error">
+                    <span>{{errorMessage}}</span>
+                </div>
+            </ng-container>
+            <mat-form-field class="twelve">
+                <mat-label>Login:</mat-label>
+                <input matInput [(ngModel)]="usuario.Login">
+            </mat-form-field>
+            <mat-form-field class="twelve">
+                <mat-label>Senha:</mat-label>
+                <input matInput type="password" [(ngModel)]="usuario.Senha" (keyup.enter)="login()">
+            </mat-form-field>
+            <div class="buttons">
+                <a (click)="esqueciSenha()">Esqueci a senha.</a>
+                <button mat-raised-button color="primary" (click)="login()">Entrar</button>
+            </div>
+        </div>
+    </div>
+</div>

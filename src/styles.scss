@@ -2,7 +2,6 @@
 @import "./fonts";
 
 body {
-    background: $white;
     font-family: "Roboto", sans-serif;
     padding: 0;
     margin: 0;
@@ -44,7 +43,18 @@ body {
         color: unset;
     }
 }
+a {
+    color: $gray;
+    &:hover {
+        color: $primary;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
 
+.right {
+    margin-left: auto;
+}
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -97,6 +107,7 @@ button:hover {
 .mat-raised-button {
     &.mat-primary {
         background-color: $primary;
+        color: $white;
     }
     &.mat-accent {
         background-color: $light-gray;

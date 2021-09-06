@@ -1,2 +1,22 @@
 <loading-component></loading-component>
 <notification-component></notification-component>
+<mat-toolbar color="primary" *ngIf="usuarioLogado">
+    <mat-toolbar-row>
+        <h4 class="logado">Usuário logado: {{nomeUsuario}}</h4>
+        <div class="right">
+            <span class="countdown">
+                Sua sessão expira em
+                <countdown [config]="{ leftTime: tempoSessao, format: 'mm:ss' }"></countdown>
+            </span>    
+            <mat-icon aria-hidden="false" class="logout" matTooltip="Sair do sistema." (click)="logout()">logout</mat-icon>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="true" *ngIf="usuarioLogado">
+        opções de menu
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

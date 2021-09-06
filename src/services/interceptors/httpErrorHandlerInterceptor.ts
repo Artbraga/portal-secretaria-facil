@@ -10,11 +10,14 @@ import { catchError } from 'rxjs/operators';
 import { LoadingService } from 'src/app/components/loading/loading.service';
 import { NotificationService } from 'src/app/components/notification/notification.service';
 import { NotificationType } from 'src/app/components/notification/toaster/toaster';
+import { UsuarioService } from '../usuario.service';
 
 @Injectable()
 export class HttpErrorHandleInterceptor implements HttpInterceptor {
 
-    constructor(private notification: NotificationService, private loadingService: LoadingService) { }
+    constructor(private notification: NotificationService, 
+                private loadingService: LoadingService, 
+                private usuarioService: UsuarioService) { }
 
     intercept(
         request: HttpRequest<any>,
@@ -36,6 +39,7 @@ export class HttpErrorHandleInterceptor implements HttpInterceptor {
     }
 
     private mostraErro(titulo: string, mensagem: string) {
-        this.notification.addNotification(titulo, mensagem, NotificationType.Error);
+        if (this.usuarioService.usuarioLogado())
+            this.notification.addNotification(titulo, mensagem, NotificationType.Error);
     }
 }

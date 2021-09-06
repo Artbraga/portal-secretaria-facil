@@ -8,20 +8,42 @@ import jwt_decode from "jwt-decode";
 
 @Injectable({ providedIn: 'root', })
 export class UsuarioService extends BaseService<Usuario> {
-    usuario: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(null);
     constructor(http: HttpClient) {
         super(http, 'Usuario');
     }
 
+    get nomeUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['unique_name'];
+    }
+
+    get perfilUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['role'][0];
+    }
+
+    get permissoesUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['role'].slice(1);
+    }
+
+    get expiracaoSessao(): Date {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return new Date(decoded['exp'] * 1000);
+    }
+
     public deslogar() {
-        this.usuario.next(null);
         localStorage.removeItem('token');
     }
 
-    public logar(usuario: Usuario): Observable<any> {
-        const url = this.baseURL + '/BuscarUsuarioPorLoginESenha';
+    public logarPortal(usuario: Usuario): Observable<any> {
+        const url = this.baseURL + '/LogarPortal';
 
-        return this.http.post<string>(url, usuario)
+        return this.http.post(url, usuario, {responseType: "text"})
         .pipe(map(token => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token);
@@ -31,13 +53,12 @@ export class UsuarioService extends BaseService<Usuario> {
 
     public usuarioLogado(): boolean {
         let token = localStorage.getItem('token');
-        const user = Object.assign(new Usuario(), jwt_decode(token));
-        if (user.dataExpiracao < new Date()) {
+        if (token == null) return false;
+        if (this.expiracaoSessao < new Date()) {
             this.deslogar();
             return false;
         }
         else {
-            this.usuario.next(user);
             return true;
         }
     }
