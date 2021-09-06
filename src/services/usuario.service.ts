@@ -8,17 +8,35 @@ import jwt_decode from "jwt-decode";
 
 @Injectable({ providedIn: 'root', })
 export class UsuarioService extends BaseService<Usuario> {
-    usuario: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(null);
     constructor(http: HttpClient) {
         super(http, 'Usuario');
     }
 
-    public buscarUsuarioLogado(): Usuario {
-        return this.usuario.value;
+    get nomeUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['unique_name'];
+    }
+
+    get perfilUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['role'][0];
+    }
+
+    get permissoesUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['role'].slice(1);
+    }
+
+    get expiracaoSessao(): Date {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return new Date(decoded['exp'] * 1000);
     }
 
     public deslogar() {
-        this.usuario.next(null);
         localStorage.removeItem('token');
     }
 
@@ -35,15 +53,12 @@ export class UsuarioService extends BaseService<Usuario> {
 
     public usuarioLogado(): boolean {
         let token = localStorage.getItem('token');
-        const decoded = jwt_decode(token)
-        const user = Object.assign(new Usuario(), JSON.parse(decoded["Usuario"]));
-        if (new Date(decoded['exp'] * 1000) < new Date()) {
+        if (token == null) return false;
+        if (this.expiracaoSessao < new Date()) {
             this.deslogar();
             return false;
         }
         else {
-            if (this.usuario.value == null)
-                this.usuario.next(user);
             return true;
         }
     }

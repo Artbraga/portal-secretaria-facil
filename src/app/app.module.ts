@@ -22,6 +22,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthInterceptor } from 'src/services/interceptors/httpAuthenticationInterceptor';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { CountdownModule } from 'ngx-countdown';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
     declarations: [
@@ -39,6 +43,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatButtonModule,
         MatToolbarModule,
         MatIconModule,
+        MatTooltipModule,
+        MatSidenavModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
@@ -46,11 +52,13 @@ import { MatIconModule } from '@angular/material/icon';
         NotificationModule,
         CustomDatetimepickerModule,
         ModalConfirmacaoModule,
-        TextMaskModule
+        TextMaskModule,
+        CountdownModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandleInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         {
             provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
             useValue: { appearance: 'outline' },

@@ -13,10 +13,15 @@ import { Router } from '@angular/router';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    get usuarioLogado(): Usuario {
-        const usr = this.usuarioService.buscarUsuarioLogado();
-        console.log(usr);
-        return usr;
+    get tempoSessao(): number {
+        return (this.usuarioService.expiracaoSessao.getTime()/1000) - (new Date().getTime()/1000);
+    }
+    get nomeUsuario(): string {
+        return this.usuarioService.nomeUsuario;
+    }
+
+    get usuarioLogado(): boolean {
+        return this.usuarioService.usuarioLogado();
     }
 
     constructor(private usuarioService: UsuarioService,
