@@ -41,7 +41,7 @@ jobs:
                 password: ${{ secrets.PASSWORD }}
                 # The local folder to copy, defaults to root project folder
                 local-dir: ./dist/portal-secretaria-facil/
-                server-dir: /www/portal/
+                server-dir: teste/
                 log-level: verbose
                 exclude: .git*
                   - .git*/**
