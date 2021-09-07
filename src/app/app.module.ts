@@ -16,7 +16,7 @@ import { HttpLoadingInterceptor } from 'src/services/interceptors/httpLoadingInt
 import { HttpErrorHandleInterceptor } from 'src/services/interceptors/httpErrorHandlerInterceptor';
 import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,8 @@ import { AuthInterceptor } from 'src/services/interceptors/httpAuthenticationInt
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CountdownModule } from 'ngx-countdown';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CustomSelectComponent } from './components/custom-select/custom-select.component';
+import { CustomSelectModule } from './components/custom-select/custom-select.module';
 
 @NgModule({
     declarations: [
@@ -51,11 +53,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         LoadingModule,
         NotificationModule,
         CustomDatetimepickerModule,
+        CustomSelectModule,
         ModalConfirmacaoModule,
         TextMaskModule,
         CountdownModule
     ],
     providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandleInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

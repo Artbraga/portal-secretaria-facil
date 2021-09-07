@@ -14,7 +14,14 @@
 </mat-toolbar>
 <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true" *ngIf="usuarioLogado">
-        opções de menu
+        <a class='logo' routerLink="/">
+            <img src="assets/images/logo.png" alt="">
+        </a>
+        <div class="sessao-menu" *ngIf="usuarioProfessor">
+            <h4>Turmas</h4>
+            <a>Consultar Turmas</a>
+            <a>Lançar Notas</a>
+        </div>
     </mat-drawer>
     <mat-drawer-content>
         <router-outlet></router-outlet>
