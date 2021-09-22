@@ -26,14 +26,18 @@ import { AuthInterceptor } from 'src/services/interceptors/httpAuthenticationInt
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CountdownModule } from 'ngx-countdown';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { CustomSelectComponent } from './components/custom-select/custom-select.component';
 import { CustomSelectModule } from './components/custom-select/custom-select.module';
+import { TabelaTurmaComponent } from './views/tabela-turma/tabela-turma.component';
+import { MatCardModule } from '@angular/material/card';
+import { CustomTableModule } from './components/custom-table/custom-table.module';
+import { SharedModule } from './components/shared/shared.module';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
+        TabelaTurmaComponent
     ],
     imports: [
         BrowserModule,
@@ -47,6 +51,7 @@ import { CustomSelectModule } from './components/custom-select/custom-select.mod
         MatIconModule,
         MatTooltipModule,
         MatSidenavModule,
+        MatCardModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
@@ -54,9 +59,11 @@ import { CustomSelectModule } from './components/custom-select/custom-select.mod
         NotificationModule,
         CustomDatetimepickerModule,
         CustomSelectModule,
+        CustomTableModule,
         ModalConfirmacaoModule,
         TextMaskModule,
-        CountdownModule
+        CountdownModule,
+        SharedModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

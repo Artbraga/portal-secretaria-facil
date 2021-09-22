@@ -19,7 +19,7 @@
         </a>
         <div class="sessao-menu" *ngIf="usuarioProfessor">
             <h4>Turmas</h4>
-            <a>Consultar Turmas</a>
+            <a [routerLink]="['consulta-turma']">Consultar Turmas</a>
             <a>Lançar Notas</a>
         </div>
     </mat-drawer>

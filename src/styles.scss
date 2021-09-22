@@ -8,40 +8,6 @@ body {
     height: 100vh;
     min-width: 1000px;
     overflow-x: auto;
-    home {
-        .formulario,
-        .pesquisa,
-        .tabela {
-            .mat-card {
-                margin-bottom: 20px;
-                box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-                    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-            }
-            .header {
-                display: flex;
-                .buttons {
-                    margin-left: auto;
-                    padding-top: 10px;
-                }
-            }
-        }
-        .mat-card-subtitle,
-        .mat-card-content {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .mat-raised-button {
-            min-width: 100px;
-            margin-left: 10px;
-        }
-        .mat-drawer-inner-container {
-            overflow-x: hidden;
-        }
-    }
-    a:-webkit-any-link {
-        text-decoration: unset;
-        color: unset;
-    }
 }
 a {
     color: $gray;
@@ -50,6 +16,10 @@ a {
         cursor: pointer;
         text-decoration: underline;
     }
+}
+
+.mat-drawer-content {
+    margin-left: 202px!important;
 }
 
 .right {
@@ -73,6 +43,10 @@ h1 {
     color: $primary;
     text-transform: uppercase;
     margin: 5px;
+}
+
+.tabela {
+    padding: 20px 10px;
 }
 
 .mat-raised-button {
