@@ -8,6 +8,30 @@ body {
     height: 100vh;
     min-width: 1000px;
     overflow-x: auto;
+    .formulario,
+    .pesquisa,
+    .tabela {
+        padding: 10px;
+        h1 {
+            font-weight: 800;
+            font-family: "Roboto-Black";
+            color: $primary;
+            text-transform: uppercase;
+            margin: 5px;
+        }
+        .mat-card {
+            margin-bottom: 20px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+        }
+        .header {
+            display: flex;
+        }
+        .buttons {
+            margin-left: auto;
+            padding-top: 10px;
+        }
+    }
 }
 a {
     color: $gray;
@@ -19,7 +43,10 @@ a {
 }
 
 .mat-drawer-content {
-    margin-left: 202px!important;
+    margin-left: 200px!important;
+}
+.mat-drawer-container {
+    height: 100%;
 }
 
 .right {
@@ -197,6 +224,9 @@ button:hover {
     }
     .mat-form-field-appearance-outline .mat-form-field-wrapper {
         margin: 0 10px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 10px 0;
     }
 }
 

@@ -1,4 +1,7 @@
 import { BaseConverter } from '../components/base-converter';
+import { Curso } from './curso.model';
+import { RegistroTurma } from './registro-turma.model';
+import { TurmaProfessor } from './turma-professor.model';
 
 export class Turma {
     id: number;
@@ -9,9 +12,16 @@ export class Turma {
     status: string;
     dataInicio: Date;
     dataFim: Date;
+    registros: RegistroTurma[];
+    professores: TurmaProfessor[];
+    curso: Curso;
 
     get dataInicioStr(): string {
         return BaseConverter.DateToStringOnlyDate(this.dataInicio);
+    }
+
+    get dataFimStr(): string {
+        return BaseConverter.DateToStringOnlyDate(this.dataFim);
     }
 
     get horarioCompleto(): string {
@@ -34,5 +44,7 @@ export class Turma {
         this.horaFim = null;
         this.dataInicio = null;
         this.dataFim = null;
+        this.registros = [];
+        this.professores = [];
     }
 }

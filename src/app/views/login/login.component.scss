@@ -1,17 +1,42 @@
 @import '../../../theming.scss';
 
-.header {
-    width: 100%;
+.login {
+    padding: 20px;
+}
+.background {
+    background-image: url('/assets/images/login-background.png');
+    background-repeat: no-repeat;
+    background-size: 100vw;
+    background-color:rgba(0, 0, 0, 0.5);
+    height: calc(100vh - 80px);
+    background-color: $primary-opac;
+}
+
+.navbar {
+    border-width: 0px;
+    background-color: $primary;
+    border-radius: 0;
+    .logo{
+        width: auto;
+        max-width: 250px;
+        height: auto;
+        max-height: 80px;
+    }
 }
 
 .login-fields {
-    margin: 30px;
+    background-color: white;
+    padding: 30px;
+    height: 100%;
     .buttons {
         justify-content: space-between;
         display: flex;
         * {
             margin: 0 10px;
         }
+    }
+    h2 {
+        color: $primary;
     }
 }
 .error {
@@ -23,4 +48,14 @@
     span {
         color: $white;
     }
+}
+
+.left {
+    display: grid;
+    padding: 40px;
+}
+
+span, li {
+    font-size: 1.2em;
+    color: $primary;
 }

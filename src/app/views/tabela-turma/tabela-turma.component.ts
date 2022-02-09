@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseTable, Coluna } from 'src/app/components/base-table';
+import { ConsultarTurmaRoute, FichaTurmaRoute, IdTurmaParameter, RotaVoltarParameter } from 'src/app/model/enums/constants';
 import { Turma } from 'src/app/model/turma.model';
+import { RoutingService } from 'src/services/routing.service';
 import { TurmaService } from 'src/services/turma.service';
 
 @Component({
@@ -10,7 +13,9 @@ import { TurmaService } from 'src/services/turma.service';
 })
 export class TabelaTurmaComponent extends BaseTable<Turma> implements OnInit {
 
-    constructor(private turmaService: TurmaService) {
+    constructor(private turmaService: TurmaService,
+        private routingService: RoutingService,
+        private router: Router) {
         super();
     }
 
@@ -31,4 +36,9 @@ export class TabelaTurmaComponent extends BaseTable<Turma> implements OnInit {
         this.columns.push({ key: 'buttons', bodyTemplateName: 'acoesTemplate' } as Coluna);
     }
 
+    abrirFichaTurma(turma: Turma) {
+        this.routingService.salvarValor(IdTurmaParameter, turma.id);
+        this.routingService.salvarValor(RotaVoltarParameter, ConsultarTurmaRoute);
+        this.router.navigate([FichaTurmaRoute]);
+    }
 }

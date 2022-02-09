@@ -31,13 +31,22 @@ import { TabelaTurmaComponent } from './views/tabela-turma/tabela-turma.componen
 import { MatCardModule } from '@angular/material/card';
 import { CustomTableModule } from './components/custom-table/custom-table.module';
 import { SharedModule } from './components/shared/shared.module';
+import { FichaTurmaComponent } from './views/ficha-turma/ficha-turma.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RegistroTurmaComponent } from './components/registro-turma/registro-turma.component';
+import { AdicionarNotaComponent } from './views/notas-turma/adicionar-nota/adicionar-nota.component';
+import { NotasTurmaComponent } from './views/notas-turma/notas-turma.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
-        TabelaTurmaComponent
+        TabelaTurmaComponent,
+        FichaTurmaComponent,
+        RegistroTurmaComponent,
+        AdicionarNotaComponent,
+        NotasTurmaComponent
     ],
     imports: [
         BrowserModule,
@@ -49,6 +58,7 @@ import { SharedModule } from './components/shared/shared.module';
         MatButtonModule,
         MatToolbarModule,
         MatIconModule,
+        MatTabsModule,
         MatTooltipModule,
         MatSidenavModule,
         MatCardModule,
@@ -75,7 +85,10 @@ import { SharedModule } from './components/shared/shared.module';
             useValue: { appearance: 'outline' },
         },
     ],
-    entryComponents: [],
+    entryComponents: [
+        AdicionarNotaComponent,
+        RegistroTurmaComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

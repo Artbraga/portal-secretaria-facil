@@ -7,6 +7,7 @@ import { Usuario } from './model/usuario.model';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { PerfilEnum } from './model/enums/perfil.enum';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -23,6 +24,10 @@ export class AppComponent implements OnInit {
 
     get usuarioLogado(): boolean {
         return this.usuarioService.usuarioLogado();
+    }
+
+    get production(): boolean {
+        return environment.production;
     }
 
     constructor(private usuarioService: UsuarioService,

@@ -1,12 +1,18 @@
-<div class="login form-grid">
-    <div class="header">
-        <h2>Portal do Aluno</h2>
-    </div>
-    
-    <div class="eight">
-    </div>
+<div id="menu">
+    <nav class="navbar navbar-default" id="navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="https://ctep.net.br" target="_blank">
+                    <img class="logo" src="assets/images/logo.png">
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="form-grid background">
     <div class="four">
         <div class="login-fields">
+            <h2>Acesso ao Portal</h2>
             <ng-container *ngIf="error">
                 <div class="error">
                     <span>{{errorMessage}}</span>
@@ -23,6 +29,20 @@
             <div class="buttons">
                 <a (click)="esqueciSenha()">Esqueci a senha.</a>
                 <button mat-raised-button color="primary" (click)="login()">Entrar</button>
+            </div>
+        </div>
+    </div>
+    <div class="eight">
+        <div class="login">
+            <h1>Portal Acadêmico</h1>
+            <div class="left">
+                <span>Praticidade para sua vida acadêmica.</span>
+                <span>Serviços para facilitar a sua experiência como:</span>
+                <ul>
+                    <li>Consulta de Notas</li>
+                    <li>Quadro de Avisos</li>
+                    <li>Situação Financeira</li>
+                </ul>
             </div>
         </div>
     </div>

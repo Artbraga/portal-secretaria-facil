@@ -4,8 +4,8 @@
         <ng-template let-element customTemplate="acoesTemplate">
             <div style="text-align: end;">
                 <button mat-icon-button color="primary"
-                        matTooltip="Ficha do Aluno"
-                        >
+                        matTooltip="Ficha da Turma"
+                        (click)="abrirFichaTurma(element)">
                     <i class="material-icons">assignment</i>
                 </button>
             </div>
