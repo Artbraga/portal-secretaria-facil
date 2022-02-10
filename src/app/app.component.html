@@ -1,29 +1,33 @@
 <loading-component></loading-component>
 <notification-component></notification-component>
-<mat-toolbar color="primary" *ngIf="usuarioLogado">
-    <mat-toolbar-row>
-        <h4 class="logado">Usuário logado: {{nomeUsuario}}</h4>
-        <div class="right">
-            <span class="countdown">
-                Sua sessão expira em
-                <countdown [config]="{ leftTime: tempoSessao, format: 'mm:ss' }" *ngIf="production"></countdown>
-            </span>    
-            <mat-icon aria-hidden="false" class="logout" matTooltip="Sair do sistema." (click)="logout()">logout</mat-icon>
-        </div>
-    </mat-toolbar-row>
-</mat-toolbar>
-<mat-drawer-container>
-    <mat-drawer mode="side" [opened]="true" *ngIf="usuarioLogado">
-        <a class='logo' routerLink="/">
-            <img src="assets/images/logo.png" alt="">
-        </a>
-        <div class="sessao-menu" *ngIf="usuarioProfessor">
-            <h4>Turmas</h4>
-            <a [routerLink]="['consulta-turma']">Consultar Turmas</a>
-            <a [routerLink]="['notas-turma']">Lançar Notas</a>
-        </div>
-    </mat-drawer>
-    <mat-drawer-content>
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-</mat-drawer-container>
+<ng-container *ngIf="usuarioLogado">
+    <mat-toolbar color="primary" >
+        <mat-toolbar-row>
+            <h4 class="logado">Usuário logado: {{nomeUsuario}}</h4>
+            <div class="right">
+                <span class="countdown">
+                    Sua sessão expira em
+                    <countdown [config]="{ leftTime: tempoSessao, format: 'mm:ss' }" *ngIf="production"></countdown>
+                </span>    
+                <mat-icon aria-hidden="false" class="logout" matTooltip="Sair do sistema." (click)="logout()">logout</mat-icon>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-drawer-container>
+        <mat-drawer mode="side" [opened]="true" *ngIf="usuarioLogado">
+            <a class='logo' routerLink="/">
+                <img src="assets/images/logo.png" alt="">
+            </a>
+            <div class="sessao-menu" *ngIf="usuarioProfessor">
+                <h4>Turmas</h4>
+                <a [routerLink]="['consulta-turma']">Consultar Turmas</a>
+            </div>
+        </mat-drawer>
+        <mat-drawer-content>
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</ng-container>
+<ng-container *ngIf="!usuarioLogado">
+    <router-outlet></router-outlet>
+</ng-container>

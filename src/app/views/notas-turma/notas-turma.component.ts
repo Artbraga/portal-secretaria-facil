@@ -100,7 +100,7 @@ export class NotasTurmaComponent extends BaseFormularioComponent<any> implements
 
     voltar() {
         this.routingService.salvarValor(IdTurmaParameter, this.id);
-        this.router.navigate([{ outlets: { secondRouter: this.rotaVoltar } }]);
+        this.router.navigate([this.rotaVoltar]);
     }
 
     validar(): boolean {

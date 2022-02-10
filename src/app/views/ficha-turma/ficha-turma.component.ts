@@ -10,7 +10,7 @@ import { NotificationType } from 'src/app/components/notification/toaster/toaste
 import { PageTableResult } from 'src/app/components/page-table-result';
 import { RegistroTurmaComponent } from 'src/app/components/registro-turma/registro-turma.component';
 import { Aluno } from 'src/app/model/aluno.model';
-import { ConsultarTurmaRoute, FichaTurmaRoute, IdTurmaParameter, NotasTurmaRoute, RotaVoltarParameter } from 'src/app/model/enums/constants';
+import { ConsultarTurmaRoute, FichaAlunoRoute, FichaTurmaRoute, IdAlunoParameter, IdTurmaParameter, NotasTurmaRoute, RotaVoltarParameter } from 'src/app/model/enums/constants';
 import { TipoStatusAlunoEnum } from 'src/app/model/enums/tipo-status-aluno.enum';
 import { FiltroAluno } from 'src/app/model/filter/aluno.filter';
 import { NotaAluno } from 'src/app/model/nota-aluno.model';
@@ -78,7 +78,10 @@ export class FichaTurmaComponent implements OnInit {
 
     ngOnInit(): void {
         this.id = this.routingService.excluirValor(IdTurmaParameter) as number;
-        this.rotaVoltar = this.routingService.excluirValor(RotaVoltarParameter);
+        if (this.routingService.possuiValor(RotaVoltarParameter)) 
+            this.rotaVoltar = this.routingService.excluirValor(RotaVoltarParameter);
+        else 
+            this.rotaVoltar = ConsultarTurmaRoute;
         this.carregarTurma();
 
         this.columnsRegistro.push({ key: 'data', header: 'Data', field: 'dataStr' } as Coluna);
@@ -222,5 +225,12 @@ export class FichaTurmaComponent implements OnInit {
 
     concluido(turmaAluno: TurmaAluno): boolean {
         return turmaAluno.tipoStatusAluno == TipoStatusAlunoEnum.Concluido.name;
+    }
+
+    visualizarAluno(element: Aluno) {
+        this.routingService.salvarValor(IdAlunoParameter, element.id);
+        this.routingService.salvarValor(IdTurmaParameter, this.id);
+        this.routingService.salvarValor(RotaVoltarParameter, FichaTurmaRoute);
+        this.router.navigate([FichaAlunoRoute]);
     }
 }

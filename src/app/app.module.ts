@@ -36,6 +36,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RegistroTurmaComponent } from './components/registro-turma/registro-turma.component';
 import { AdicionarNotaComponent } from './views/notas-turma/adicionar-nota/adicionar-nota.component';
 import { NotasTurmaComponent } from './views/notas-turma/notas-turma.component';
+import { FichaAlunoComponent } from './views/ficha-aluno/ficha-aluno.component';
+import { RegistroAlunoComponent } from './views/ficha-aluno/registro-aluno/registro-aluno.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,9 @@ import { NotasTurmaComponent } from './views/notas-turma/notas-turma.component';
         FichaTurmaComponent,
         RegistroTurmaComponent,
         AdicionarNotaComponent,
-        NotasTurmaComponent
+        NotasTurmaComponent,
+        FichaAlunoComponent,
+        RegistroAlunoComponent
     ],
     imports: [
         BrowserModule,

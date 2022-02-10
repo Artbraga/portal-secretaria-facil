@@ -3,6 +3,7 @@ export const RotaVoltarParameter = 'rotaVoltar';
 // Aluno
 export const FiltroAlunoParameter = 'filtroAluno';
 export const IdAlunoParameter = 'idAluno';
+export const FichaAlunoRoute = 'ficha-aluno';
 
 // Turma
 export const IdTurmaParameter = 'idTurma';
