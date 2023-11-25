@@ -51,7 +51,7 @@
             <div style="display: flex;justify-content: space-between;">
                 <h4>Alunos</h4>
                 <div class="buttons">
-                    <button mat-button color="accent" (click)="adicionarNotas()">
+                    <button mat-button color="accent" (click)="adicionarNotas()" *ngIf="podeAdicionarNotas()">
                         <mat-icon>format_list_numbered</mat-icon>Adicionar Notas
                     </button>
                 </div>
@@ -93,7 +93,8 @@
                     <div style="text-align: end;">
                         <button mat-icon-button color="primary"
                                 matTooltip="Ficha do Aluno"
-                                (click)="visualizarAluno(element)">
+                                (click)="visualizarAluno(element)"
+                                *ngIf="podeConsultarAlunos()">
                             <i class="material-icons">assignment</i>
                         </button>
                     </div>

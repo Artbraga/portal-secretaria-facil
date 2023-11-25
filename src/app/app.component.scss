@@ -24,7 +24,7 @@
 }
 
 .mat-drawer-container {
-    height: 100vh;
+    height: calc(100vh - 40px);
     overflow-y: auto;
     .mat-drawer {
         padding-top: 20px;

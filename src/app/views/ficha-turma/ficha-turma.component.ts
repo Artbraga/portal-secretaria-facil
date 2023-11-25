@@ -11,6 +11,7 @@ import { PageTableResult } from 'src/app/components/page-table-result';
 import { RegistroTurmaComponent } from 'src/app/components/registro-turma/registro-turma.component';
 import { Aluno } from 'src/app/model/aluno.model';
 import { ConsultarTurmaRoute, FichaAlunoRoute, FichaTurmaRoute, IdAlunoParameter, IdTurmaParameter, NotasTurmaRoute, RotaVoltarParameter } from 'src/app/model/enums/constants';
+import { ConsultarAlunos, ManterNotas } from 'src/app/model/enums/permissoes';
 import { TipoStatusAlunoEnum } from 'src/app/model/enums/tipo-status-aluno.enum';
 import { FiltroAluno } from 'src/app/model/filter/aluno.filter';
 import { NotaAluno } from 'src/app/model/nota-aluno.model';
@@ -24,6 +25,7 @@ import { DisciplinaService } from 'src/services/disciplina.service';
 import { NotaAlunoService } from 'src/services/nota-aluno.service';
 import { RoutingService } from 'src/services/routing.service';
 import { TurmaService } from 'src/services/turma.service';
+import { UsuarioService } from 'src/services/usuario.service';
 
 @Component({
     selector: 'app-ficha-turma',
@@ -68,6 +70,7 @@ export class FichaTurmaComponent implements OnInit {
     constructor(
         private turmaService: TurmaService,
         private alunoService: AlunoService,
+        private usuarioService: UsuarioService,
         private disciplinaService: DisciplinaService,
         private notaAlunoService: NotaAlunoService,
         private notificationService: NotificationService,
@@ -198,7 +201,7 @@ export class FichaTurmaComponent implements OnInit {
             {
                 forkJoin([
                     this.disciplinaService.listarDisciplinasDeUmCurso(this.element.curso.id),
-                    this.notaAlunoService.listarNotasDeUmAluno(this.element.id)
+                    this.notaAlunoService.listarNotasDeUmAluno(aluno.id)
                 ]).subscribe(([disciplinas, notas]) => {
                     const notasCurso = [];
                     disciplinas.forEach(d => {
@@ -225,6 +228,14 @@ export class FichaTurmaComponent implements OnInit {
 
     concluido(turmaAluno: TurmaAluno): boolean {
         return turmaAluno.tipoStatusAluno == TipoStatusAlunoEnum.Concluido.name;
+    }
+
+    podeAdicionarNotas() {
+        return this.usuarioService.usuarioPossuiPermissao(ManterNotas);
+    }
+
+    podeConsultarAlunos() {
+        return this.usuarioService.usuarioPossuiPermissao(ConsultarAlunos);
     }
 
     visualizarAluno(element: Aluno) {

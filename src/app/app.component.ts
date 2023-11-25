@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 import { UsuarioService } from 'src/services/usuario.service';
-import { Usuario } from './model/usuario.model';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { PerfilEnum } from './model/enums/perfil.enum';
-import { environment } from 'src/environments/environment';
+import { ConsultarTurmas } from './model/enums/permissoes';
 
 @Component({
     selector: 'app-root',
@@ -24,10 +21,6 @@ export class AppComponent implements OnInit {
 
     get usuarioLogado(): boolean {
         return this.usuarioService.usuarioLogado();
-    }
-
-    get production(): boolean {
-        return environment.production;
     }
 
     constructor(private usuarioService: UsuarioService,
@@ -51,6 +44,6 @@ export class AppComponent implements OnInit {
     }
 
     usuarioProfessor(): boolean {
-        return this.usuarioService.perfilUsuario == PerfilEnum.Professor.name;
+        return this.usuarioService.usuarioPossuiPermissao(ConsultarTurmas);
     }
  }

@@ -1,0 +1,11 @@
+export const ConsultarAlunos = "Consultar Alunos";
+export const ManterAlunos = "Manter Alunos";
+export const ManterNotas = "Manter Notas";
+export const ConsultarTurmas = "Consultar Turmas";
+export const ManterTurmas = "Manter Turmas";
+export const AcessoDesktop = "Acesso Desktop";
+export const AcessoPortal = "Acesso Portal";
+export const ConsultarUsuarios = "Consultar Usuários";
+export const ManterUsuarios = "Manter Usuários";
+export const ConsultarProfessores = "Consultar Professores";
+export const ManterProfessores = "Manter Professores";
