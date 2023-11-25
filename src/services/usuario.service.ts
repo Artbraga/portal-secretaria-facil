@@ -12,6 +12,8 @@ export class UsuarioService extends BaseService<Usuario> {
         super(http, 'Usuario');
     }
 
+    private lock: boolean = false;
+
     get nomeUsuario(): string {
         const token = localStorage.getItem('token');
         const decoded = jwt_decode(token)
@@ -51,15 +53,37 @@ export class UsuarioService extends BaseService<Usuario> {
         }));
     }
 
+    public renovarToken(): Observable<any> {
+        const url = this.baseURL + '/RenovarToken';
+        this.lock = true;
+
+        return this.http.post(url, {}, {responseType: "text"})
+        .pipe(map(token => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('token', token);
+            this.lock = false;
+        }));
+    }
+
     public usuarioLogado(): boolean {
         let token = localStorage.getItem('token');
         if (token == null) return false;
-        if (this.expiracaoSessao < new Date()) {
+        const now = new Date();
+        const nowPlus15min = new Date();
+        nowPlus15min.setMinutes(now.getMinutes() + 15);
+        if (this.expiracaoSessao > now && this.expiracaoSessao < nowPlus15min && !this.lock) {
+            this.renovarToken().subscribe();
+        }
+        if (this.expiracaoSessao < now) {
             this.deslogar();
             return false;
         }
         else {
             return true;
         }
+    }
+
+    public usuarioPossuiPermissao(permissao: string): boolean {
+        return this.permissoesUsuario.includes(permissao);
     }
 }

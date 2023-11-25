@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 import { UsuarioService } from 'src/services/usuario.service';
-import { Usuario } from './model/usuario.model';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { ConsultarTurmas } from './model/enums/permissoes';
 
 @Component({
     selector: 'app-root',
@@ -43,4 +42,8 @@ export class AppComponent implements OnInit {
             });
         });
     }
-}
+
+    usuarioProfessor(): boolean {
+        return this.usuarioService.usuarioPossuiPermissao(ConsultarTurmas);
+    }
+ }

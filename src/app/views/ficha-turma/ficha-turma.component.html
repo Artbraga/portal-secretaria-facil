@@ -1,0 +1,127 @@
+<div class="formulario">
+    <div class="header">
+        <div class="six">
+            <h1>Ficha da Turma</h1>
+        </div>
+        <div class="six buttons">
+            <button mat-raised-button color="accent" (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+    <mat-tab-group>
+        <mat-tab label="Informações">
+            <h4>Informações Básicas</h4>
+            <div class="form-grid" >
+                <div class="three">
+                    <div class="field">
+                        <span>Código</span>
+                        <span class="campo">{{ tratarString(element.codigo) }}</span>
+                    </div>
+                </div>
+                <div class="three">
+                    <div class="field">
+                        <span>Dias da Semana</span>
+                        <span class="campo">{{ tratarString(element.diasDaSemana) }}</span>
+                    </div>
+                </div>
+                <div class="three">
+                    <div class="field">
+                        <span>Horário</span>
+                        <span class="campo">{{ tratarString(element.horario) }}</span>
+                    </div>
+                </div>
+                <div class="three">
+                    <div class="field">
+                        <span>Status</span>
+                        <span class="campo">{{ tratarString(element.status) }}</span>
+                    </div>
+                </div>
+
+                <div class="three">
+                    <div class="field">
+                        <span>Data Início</span>
+                        <span class="campo">{{ tratarString(element.dataInicioStr) }}</span>
+                    </div>
+                </div>
+            </div>
+            <h4>Professores</h4>
+            <custom-table [columns]="columnsProfessor" [listOfElements]="element.professores">
+            </custom-table>
+        </mat-tab>
+        <mat-tab label="Alunos">
+            <div style="display: flex;justify-content: space-between;">
+                <h4>Alunos</h4>
+                <div class="buttons">
+                    <button mat-button color="accent" (click)="adicionarNotas()" *ngIf="podeAdicionarNotas()">
+                        <mat-icon>format_list_numbered</mat-icon>Adicionar Notas
+                    </button>
+                </div>
+            </div>
+            <custom-table [columns]="columnsAluno" [colGroups]="columnGroupsAluno" [listOfElements]="alunosPageList.lista">
+                <ng-template let-element let-column="column" let-index='rowIndex' customTemplate="expand">
+                    <button mat-icon-button color="primary" class="toggleButton" (click)="expandTable(element)">
+                        <mat-icon class="material-icons">{{changeIconAluno[index] ? 'expand_less' : 'expand_more'}}</mat-icon>
+                    </button>
+                </ng-template>
+                <ng-template let-element customTemplate="expandedDetailTemplate">
+                    <div [@detailExpand]="expandedAluno.includes(element) ? 'expanded' : 'collapsed'">
+                        <div *ngIf="concluido(getTurmaAluno(element))" class="form-grid">
+                            <div class="three">
+                                <div class="field">
+                                    <span>Código de conclusão do Sistec</span>
+                                    <span class="campo">{{ tratarString(getTurmaAluno(element).codigoConlusaoSistec) }}</span>
+                                </div>
+                            </div>
+                            <div class="three">
+                                <div class="field">
+                                    <span>Data de Conclusão</span>
+                                    <span class="campo">{{ tratarString(getTurmaAluno(element).dataConclusaoStr) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>Notas</h4>
+                        <div class="form-grid">
+                            <div *ngFor="let nota of getTurmaAluno(element).notas" class="three">
+                                <div class="field">
+                                    <span>{{nota.disciplina.nome}}</span>
+                                    <span class="campo">{{ tratarString(nota.valorNota) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template let-element customTemplate="acoesTemplate">
+                    <div style="text-align: end;">
+                        <button mat-icon-button color="primary"
+                                matTooltip="Ficha do Aluno"
+                                (click)="visualizarAluno(element)"
+                                *ngIf="podeConsultarAlunos()">
+                            <i class="material-icons">assignment</i>
+                        </button>
+                    </div>
+                </ng-template>
+            </custom-table> 
+        </mat-tab>
+        <mat-tab label="Registro da Turma">
+            <div style="display: flex;justify-content: space-between;">
+                <h4>Registro da Turma</h4>
+                <div class="buttons">
+                    <button mat-button color="accent" (click)="adicionarRegistro()" style="margin-top: 5px;">
+                        <mat-icon>add</mat-icon>Adicionar
+                    </button>
+                </div>
+            </div>
+            <custom-table [columns]="columnsRegistro" [listOfElements]="element.registros">
+                <ng-template let-element customTemplate="acoesTemplate">
+                    <div style="text-align: end;">
+                        <button mat-icon-button color="primary"
+                                matTooltip="Excluir Registro"
+                                (click)="excluirRegistro(element)">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+                </ng-template>
+            </custom-table>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>

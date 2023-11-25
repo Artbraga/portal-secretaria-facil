@@ -27,7 +27,28 @@
     height: calc(100vh - 40px);
     overflow-y: auto;
     .mat-drawer {
-        padding-top: 10px;
-        background-color: $light-gray;
+        padding-top: 20px;
+        background-color: $off-white;
+        border-right: 2px solid $light-gray;
+        .sessao-menu {
+            background-color: white;
+            border-radius: 5px;
+            display: grid;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid $light-gray;
+            font-size: 12px;
+            h4 {
+                margin: 0;
+                padding-bottom: 5px;
+            }
+            >* {
+                margin: 2px 0;
+            }
+        }
     }
+}
+
+.logo img{
+    max-width: 200px;
 }

@@ -16,7 +16,7 @@ import { HttpLoadingInterceptor } from 'src/services/interceptors/httpLoadingInt
 import { HttpErrorHandleInterceptor } from 'src/services/interceptors/httpErrorHandlerInterceptor';
 import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,12 +26,31 @@ import { AuthInterceptor } from 'src/services/interceptors/httpAuthenticationInt
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CountdownModule } from 'ngx-countdown';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CustomSelectModule } from './components/custom-select/custom-select.module';
+import { TabelaTurmaComponent } from './views/tabela-turma/tabela-turma.component';
+import { MatCardModule } from '@angular/material/card';
+import { CustomTableModule } from './components/custom-table/custom-table.module';
+import { SharedModule } from './components/shared/shared.module';
+import { FichaTurmaComponent } from './views/ficha-turma/ficha-turma.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RegistroTurmaComponent } from './components/registro-turma/registro-turma.component';
+import { AdicionarNotaComponent } from './views/notas-turma/adicionar-nota/adicionar-nota.component';
+import { NotasTurmaComponent } from './views/notas-turma/notas-turma.component';
+import { FichaAlunoComponent } from './views/ficha-aluno/ficha-aluno.component';
+import { RegistroAlunoComponent } from './views/ficha-aluno/registro-aluno/registro-aluno.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
+        TabelaTurmaComponent,
+        FichaTurmaComponent,
+        RegistroTurmaComponent,
+        AdicionarNotaComponent,
+        NotasTurmaComponent,
+        FichaAlunoComponent,
+        RegistroAlunoComponent
     ],
     imports: [
         BrowserModule,
@@ -43,19 +62,25 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         MatButtonModule,
         MatToolbarModule,
         MatIconModule,
+        MatTabsModule,
         MatTooltipModule,
         MatSidenavModule,
+        MatCardModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
         LoadingModule,
         NotificationModule,
         CustomDatetimepickerModule,
+        CustomSelectModule,
+        CustomTableModule,
         ModalConfirmacaoModule,
         TextMaskModule,
-        CountdownModule
+        CountdownModule,
+        SharedModule
     ],
     providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandleInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -64,7 +89,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
             useValue: { appearance: 'outline' },
         },
     ],
-    entryComponents: [],
+    entryComponents: [
+        AdicionarNotaComponent,
+        RegistroTurmaComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
