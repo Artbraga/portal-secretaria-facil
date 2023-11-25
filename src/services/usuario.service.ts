@@ -20,6 +20,12 @@ export class UsuarioService extends BaseService<Usuario> {
         return decoded['unique_name'];
     }
 
+    get idAluno(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['idaluno'];
+    }
+
     get perfilUsuario(): string {
         const token = localStorage.getItem('token');
         const decoded = jwt_decode(token)

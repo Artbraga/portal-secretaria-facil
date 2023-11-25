@@ -19,6 +19,8 @@ import { BaixarArquivoService } from 'src/services/application-services/baixarAr
 import { DisciplinaService } from 'src/services/disciplina.service';
 import { NotaAlunoService } from 'src/services/nota-aluno.service';
 import { RegistroAlunoComponent } from './registro-aluno/registro-aluno.component';
+import { PerfilEnum } from 'src/app/model/enums/perfil.enum';
+import { UsuarioService } from 'src/services/usuario.service';
 
 
 @Component({
@@ -58,11 +60,13 @@ export class FichaAlunoComponent implements OnInit {
     ];
 
     idAluno: number;
+    imagemPerfil: File;
 
     constructor(
         private alunoService: AlunoService,
         private notaAlunoService: NotaAlunoService,
         private disciplinaService: DisciplinaService,
+        public usuarioService: UsuarioService,
         private notificationService: NotificationService,
         private routingService: RoutingService,
         private router: Router,
@@ -209,5 +213,29 @@ export class FichaAlunoComponent implements OnInit {
                 });
             }
         }
+    }
+
+    usuarioAluno(): boolean {
+        return this.usuarioService.perfilUsuario == PerfilEnum.Aluno.name;
+    }
+
+    inserirFoto(imageInput: any) {
+        this.imagemPerfil = imageInput.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener('load', (event: any) => {
+            this.imagem = event.target.result;
+        });
+        reader.readAsDataURL(this.imagemPerfil);
+        setTimeout(() => {
+            this.alunoService.salvarImagem(this.element.id, this.imagemPerfil).subscribe(x => {
+                if (x) {
+                    this.notificationService.addNotification('Sucesso!', 'Foto de perfil salva com sucesso.', NotificationType.Success);
+                } else {
+                    this.notificationService.addNotification('Erro!', 'Erro ao salvar foto de perfil.', NotificationType.Error);
+                }
+            });
+        }, 0);
+
     }
 }

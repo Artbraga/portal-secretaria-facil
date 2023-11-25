@@ -4,7 +4,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { UsuarioService } from 'src/services/usuario.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ConsultarTurmas } from './model/enums/permissoes';
+import { PerfilEnum } from './model/enums/perfil.enum';
+import { RoutingService } from 'src/services/routing.service';
+import { FichaAlunoRoute, IdAlunoParameter } from './model/enums/constants';
 
 @Component({
     selector: 'app-root',
@@ -23,7 +27,12 @@ export class AppComponent implements OnInit {
         return this.usuarioService.usuarioLogado();
     }
 
+    get production(): boolean {
+        return environment.production;
+    }
+
     constructor(private usuarioService: UsuarioService,
+        private routingService: RoutingService,
         private router: Router,
         private matIconRegistry: MatIconRegistry,
         private domSanitizer: DomSanitizer,
@@ -45,5 +54,14 @@ export class AppComponent implements OnInit {
 
     usuarioProfessor(): boolean {
         return this.usuarioService.usuarioPossuiPermissao(ConsultarTurmas);
+    }
+
+    usuarioAluno(): boolean {
+        return this.usuarioService.perfilUsuario == PerfilEnum.Aluno.name;
+    }
+
+    abrirFichaAluno() {
+        this.routingService.salvarValor(IdAlunoParameter, this.usuarioService.idAluno);
+        this.router.navigate([FichaAlunoRoute]);
     }
  }
