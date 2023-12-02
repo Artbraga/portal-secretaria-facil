@@ -4,7 +4,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { UsuarioService } from 'src/services/usuario.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ConsultarTurmas } from './model/enums/permissoes';
+import { PerfilEnum } from './model/enums/perfil.enum';
+import { TurmaService } from 'src/services/turma.service';
+import { Turma } from './model/turma.model';
 
 @Component({
     selector: 'app-root',
@@ -23,7 +27,14 @@ export class AppComponent implements OnInit {
         return this.usuarioService.usuarioLogado();
     }
 
+    get production(): boolean {
+        return environment.production;
+    }
+
+    turmas: Turma[] = [];
+
     constructor(private usuarioService: UsuarioService,
+        private turmaService: TurmaService,
         private router: Router,
         private matIconRegistry: MatIconRegistry,
         private domSanitizer: DomSanitizer,
@@ -33,6 +44,11 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.usuarioService.usuarioLogado();
+        if (this.usuarioAluno()) {
+            this.turmaService.listarTurmasPortal().subscribe(x => {
+                this.turmas = x;
+            })
+        }
     }
 
     logout() {
@@ -45,5 +61,9 @@ export class AppComponent implements OnInit {
 
     usuarioProfessor(): boolean {
         return this.usuarioService.usuarioPossuiPermissao(ConsultarTurmas);
+    }
+
+    usuarioAluno(): boolean {
+        return this.usuarioService.perfilUsuario == PerfilEnum.Aluno.name;
     }
  }

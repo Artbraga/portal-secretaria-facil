@@ -16,8 +16,12 @@ export const NotasTurmaRoute = 'notas-turma';
 export const IdUsuarioParameter = 'idUsuario';
 export const TabelaUsuarioRoute = 'tabelaUsuario';
 export const FormularioUsuarioRoute = 'formularioUsuario';
+export const AlterarSenhaRoute = 'alterar-senha';
 
 // Professor
 export const IdProfessorParameter = 'idProfessor';
+
+// Financeiro
+export const FinanceiroRoute = 'financeiro';
 
 export const HomeRoute = 'home';

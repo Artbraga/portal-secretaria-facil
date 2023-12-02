@@ -38,4 +38,10 @@ export class TurmaService extends BaseService<Turma> {
 
         return this.http.delete<boolean>(url);
     }
+
+    public listarMinhasTurmas() {
+        const url = this.baseURL + `/FiltrarTurmas`;
+
+        return this.http.post<Turma[]>(url, {});
+    }
 }

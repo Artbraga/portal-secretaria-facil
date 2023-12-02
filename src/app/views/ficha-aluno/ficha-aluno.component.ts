@@ -10,15 +10,16 @@ import { ModalConfirmacaoComponent } from 'src/app/components/modal-confirmacao/
 import { NotificationService } from 'src/app/components/notification/notification.service';
 import { NotificationType } from 'src/app/components/notification/toaster/toaster';
 import { Aluno } from 'src/app/model/aluno.model';
-import { IdAlunoParameter, RotaVoltarParameter, HomeRoute, FichaTurmaRoute, IdTurmaParameter, FichaAlunoRoute, ConsultarTurmaRoute } from 'src/app/model/enums/constants';
+import { IdAlunoParameter, RotaVoltarParameter, FichaTurmaRoute, IdTurmaParameter, FichaAlunoRoute } from 'src/app/model/enums/constants';
 import { TipoStatusAlunoEnum } from 'src/app/model/enums/tipo-status-aluno.enum';
 import { NotaAluno } from 'src/app/model/nota-aluno.model';
 import { RegistroAluno } from 'src/app/model/registro-aluno.model';
 import { TurmaAluno } from 'src/app/model/turma-aluno.model';
-import { BaixarArquivoService } from 'src/services/application-services/baixarArquivo.service';
 import { DisciplinaService } from 'src/services/disciplina.service';
 import { NotaAlunoService } from 'src/services/nota-aluno.service';
 import { RegistroAlunoComponent } from './registro-aluno/registro-aluno.component';
+import { PerfilEnum } from 'src/app/model/enums/perfil.enum';
+import { UsuarioService } from 'src/services/usuario.service';
 
 
 @Component({
@@ -58,11 +59,13 @@ export class FichaAlunoComponent implements OnInit {
     ];
 
     idAluno: number;
+    imagemPerfil: File;
 
     constructor(
         private alunoService: AlunoService,
         private notaAlunoService: NotaAlunoService,
         private disciplinaService: DisciplinaService,
+        public usuarioService: UsuarioService,
         private notificationService: NotificationService,
         private routingService: RoutingService,
         private router: Router,
@@ -87,7 +90,12 @@ export class FichaAlunoComponent implements OnInit {
 
         if (this.routingService.possuiValor(IdAlunoParameter)) {
             this.idAluno = this.routingService.excluirValor(IdAlunoParameter) as number;
-
+        }
+        if (this.usuarioAluno())
+        {
+            this.idAluno = parseInt(this.usuarioService.idAluno);
+        }
+        if (this.idAluno != null) {
             this.carregarAluno();
             this.alunoService.buscarImagem(this.idAluno).subscribe(data => {
                 if (data != null && data.size > 0) {
@@ -209,5 +217,28 @@ export class FichaAlunoComponent implements OnInit {
                 });
             }
         }
+    }
+
+    usuarioAluno(): boolean {
+        return this.usuarioService.perfilUsuario == PerfilEnum.Aluno.name;
+    }
+
+    inserirFoto(imageInput: any) {
+        this.imagemPerfil = imageInput.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener('load', (event: any) => {
+            this.imagem = event.target.result;
+        });
+        reader.readAsDataURL(this.imagemPerfil);
+        setTimeout(() => {
+            this.alunoService.salvarImagem(this.element.id, this.imagemPerfil).subscribe(x => {
+                if (x) {
+                    this.notificationService.addNotification('Sucesso!', 'Foto de perfil salva com sucesso.', NotificationType.Success);
+                } else {
+                    this.notificationService.addNotification('Erro!', 'Erro ao salvar foto de perfil.', NotificationType.Error);
+                }
+            });
+        }, 0);
     }
 }

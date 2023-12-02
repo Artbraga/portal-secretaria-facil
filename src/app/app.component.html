@@ -7,21 +7,43 @@
             <div class="right">
                 <span class="countdown">
                     Sua sessão expira em
-                    <countdown [config]="{ leftTime: tempoSessao, format: 'mm:ss' }"></countdown>
+                    <countdown [config]="{ leftTime: tempoSessao, format: 'mm:ss' }" *ngIf="production"></countdown>
                 </span>    
                 <mat-icon aria-hidden="false" class="logout" matTooltip="Sair do sistema." (click)="logout()">logout</mat-icon>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-drawer-container>
-        <mat-drawer mode="side" [opened]="true" *ngIf="usuarioLogado">
-            <a class='logo' [routerLink]="['home']">
+        <mat-drawer mode="side" [opened]="true">
+            <a class='logo' [routerLink]="['']">
                 <img src="assets/images/logo.png" alt="">
             </a>
-            <div class="sessao-menu" *ngIf="usuarioProfessor">
-                <h4>Turmas</h4>
-                <a [routerLink]="['consulta-turma']">Consultar Turmas</a>
-            </div>
+            <ng-container *ngIf="usuarioProfessor()">
+                <div class="sessao-menu">
+                    <h4>Turmas</h4>
+                    <a [routerLink]="['consulta-turma']">Consultar Turmas</a>
+                </div>
+                <div class="sessao-menu" >
+                    <h4>Usuário</h4>
+                    <a [routerLink]="['alterar-senha']">Alterar Senha</a>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="usuarioAluno()">
+                <div class="sessao-menu" >
+                    <h4>Minhas Turmas</h4>
+                    <a *ngFor="let turma of turmas">{{turma.codigo}}</a>
+                </div>
+                <div class="sessao-menu" >
+                    <h4>Pessoal</h4>
+                    <a [routerLink]="['ficha-aluno']">Informações Pessoais</a>
+                    <a [routerLink]="['financeiro']">Financeiro</a>
+                </div>
+                <div class="sessao-menu" >
+                    <h4>Usuário</h4>
+                    <a [routerLink]="['alterar-senha']">Alterar Senha</a>
+                </div>
+            </ng-container>
+            
         </mat-drawer>
         <mat-drawer-content>
             <router-outlet></router-outlet>

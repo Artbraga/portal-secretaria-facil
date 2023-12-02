@@ -28,7 +28,7 @@ export class LoginComponent  {
     login() {
         if (this.validar()) {
             this.usuarioService.logarPortal(this.usuario).subscribe(data => {
-                this.router.navigate(['home']);
+                this.router.navigate(['']);
             },
             err => {
                 this.error = true;

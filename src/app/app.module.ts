@@ -38,6 +38,9 @@ import { AdicionarNotaComponent } from './views/notas-turma/adicionar-nota/adici
 import { NotasTurmaComponent } from './views/notas-turma/notas-turma.component';
 import { FichaAlunoComponent } from './views/ficha-aluno/ficha-aluno.component';
 import { RegistroAlunoComponent } from './views/ficha-aluno/registro-aluno/registro-aluno.component';
+import { AlteraSenhaComponent } from './views/altera-senha/altera-senha.component';
+import { ModalConfirmacaoComponent } from './components/modal-confirmacao/modal-confirmacao.component';
+import { FinanceiroComponent } from './views/financeiro/financeiro.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +53,9 @@ import { RegistroAlunoComponent } from './views/ficha-aluno/registro-aluno/regis
         AdicionarNotaComponent,
         NotasTurmaComponent,
         FichaAlunoComponent,
-        RegistroAlunoComponent
+        RegistroAlunoComponent,
+        AlteraSenhaComponent,
+        FinanceiroComponent
     ],
     imports: [
         BrowserModule,
@@ -91,7 +96,8 @@ import { RegistroAlunoComponent } from './views/ficha-aluno/registro-aluno/regis
     ],
     entryComponents: [
         AdicionarNotaComponent,
-        RegistroTurmaComponent
+        RegistroTurmaComponent,
+        ModalConfirmacaoComponent
     ],
     bootstrap: [AppComponent]
 })
