@@ -5,6 +5,7 @@ import { BaseService } from './base.service';
 import { Usuario } from 'src/app/model/usuario.model';
 import { map } from 'rxjs/operators';
 import jwt_decode from "jwt-decode";
+import { AlteraSenha } from 'src/app/model/altera-senha.model';
 
 @Injectable({ providedIn: 'root', })
 export class UsuarioService extends BaseService<Usuario> {
@@ -18,6 +19,18 @@ export class UsuarioService extends BaseService<Usuario> {
         const token = localStorage.getItem('token');
         const decoded = jwt_decode(token)
         return decoded['unique_name'];
+    }
+
+    get loginUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['login'];
+    }
+
+    get idUsuario(): string {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token)
+        return decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid'];
     }
 
     get idAluno(): string {
@@ -91,5 +104,11 @@ export class UsuarioService extends BaseService<Usuario> {
 
     public usuarioPossuiPermissao(permissao: string): boolean {
         return this.permissoesUsuario.includes(permissao);
+    }
+
+    public alterarSenha(alteraSenha: AlteraSenha): Observable<any> {
+        const url = this.baseURL + '/AlterarSenha';
+
+        return this.http.post(url, alteraSenha);
     }
 }

@@ -99,9 +99,12 @@
             </ng-template>
             <label class="image-upload-container btn btn-bwm">
                 <input #imageInput
+                        id="perfil"
                         type="file"
                         accept="image/*"
+                        style="visibility: hidden;"
                         (change)="inserirFoto(imageInput)">
+                <label for="perfil">{{imagem ? 'Alterar foto' : 'Adicionar foto'}}</label>
                 </label>
         </span>
         <div class="perfil">

@@ -1,0 +1,17 @@
+<div class="formulario">
+    <h1>Alterar senha</h1>
+    <div class="form-grid">
+        <div class="twelve">
+            <span>Usuário: {{login}}</span>
+        </div>
+        <mat-form-field class="six">
+            <mat-label>Senha antiga:</mat-label>
+            <input matInput [(ngModel)]="element.senhaAntiga" type="password">
+        </mat-form-field>
+        <mat-form-field class="six">
+            <mat-label>Senha nova:</mat-label>
+            <input matInput [(ngModel)]="element.senhaNova" type="password">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+    </div>
+</div>

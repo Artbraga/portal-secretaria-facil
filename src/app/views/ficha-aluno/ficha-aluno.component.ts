@@ -10,12 +10,11 @@ import { ModalConfirmacaoComponent } from 'src/app/components/modal-confirmacao/
 import { NotificationService } from 'src/app/components/notification/notification.service';
 import { NotificationType } from 'src/app/components/notification/toaster/toaster';
 import { Aluno } from 'src/app/model/aluno.model';
-import { IdAlunoParameter, RotaVoltarParameter, HomeRoute, FichaTurmaRoute, IdTurmaParameter, FichaAlunoRoute, ConsultarTurmaRoute } from 'src/app/model/enums/constants';
+import { IdAlunoParameter, RotaVoltarParameter, FichaTurmaRoute, IdTurmaParameter, FichaAlunoRoute } from 'src/app/model/enums/constants';
 import { TipoStatusAlunoEnum } from 'src/app/model/enums/tipo-status-aluno.enum';
 import { NotaAluno } from 'src/app/model/nota-aluno.model';
 import { RegistroAluno } from 'src/app/model/registro-aluno.model';
 import { TurmaAluno } from 'src/app/model/turma-aluno.model';
-import { BaixarArquivoService } from 'src/services/application-services/baixarArquivo.service';
 import { DisciplinaService } from 'src/services/disciplina.service';
 import { NotaAlunoService } from 'src/services/nota-aluno.service';
 import { RegistroAlunoComponent } from './registro-aluno/registro-aluno.component';
@@ -91,7 +90,12 @@ export class FichaAlunoComponent implements OnInit {
 
         if (this.routingService.possuiValor(IdAlunoParameter)) {
             this.idAluno = this.routingService.excluirValor(IdAlunoParameter) as number;
-
+        }
+        if (this.usuarioAluno())
+        {
+            this.idAluno = parseInt(this.usuarioService.idAluno);
+        }
+        if (this.idAluno != null) {
             this.carregarAluno();
             this.alunoService.buscarImagem(this.idAluno).subscribe(data => {
                 if (data != null && data.size > 0) {
@@ -236,6 +240,5 @@ export class FichaAlunoComponent implements OnInit {
                 }
             });
         }, 0);
-
     }
 }
