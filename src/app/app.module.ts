@@ -40,6 +40,7 @@ import { FichaAlunoComponent } from './views/ficha-aluno/ficha-aluno.component';
 import { RegistroAlunoComponent } from './views/ficha-aluno/registro-aluno/registro-aluno.component';
 import { AlteraSenhaComponent } from './views/altera-senha/altera-senha.component';
 import { ModalConfirmacaoComponent } from './components/modal-confirmacao/modal-confirmacao.component';
+import { FinanceiroComponent } from './views/financeiro/financeiro.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { ModalConfirmacaoComponent } from './components/modal-confirmacao/modal-
         NotasTurmaComponent,
         FichaAlunoComponent,
         RegistroAlunoComponent,
-        AlteraSenhaComponent
+        AlteraSenhaComponent,
+        FinanceiroComponent
     ],
     imports: [
         BrowserModule,

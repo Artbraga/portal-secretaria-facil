@@ -21,4 +21,7 @@ export const AlterarSenhaRoute = 'alterar-senha';
 // Professor
 export const IdProfessorParameter = 'idProfessor';
 
+// Financeiro
+export const FinanceiroRoute = 'financeiro';
+
 export const HomeRoute = 'home';
